@@ -19,24 +19,19 @@ try:
 
     ##Execução de comando no servidor SFTP
     try:
+        filePath = os.getenv('filePathLocal')
+        remotePath = os.getenv('filePathRemote')
 
-        stdin, stdout, stderr = client.exec_command("cd sftpServer && dir")
+        sftp = client.open_sftp()
+        sftp.put(filePath, remotePath)
 
-        resultado = stdout.read().decode('latin-1')
-        erro = stderr.read().decode('latin-1')
-
-        ##Essa estrutura permite a exibição do objeto de erro do exec_command
-        if erro:
-            print("Erro:")
-            print(erro)
-        else:
-            print("Resultado:")
-            print(resultado)
+        print("Arquivo enviado com sucesso!")
+        sftp.close()
 
     #Tratamento Erro: Execução de comando no servidor SFTP
     except Exception as e:
         print(f"Erro ao executar comando: {e}")
-    
+
     client.close()
 
 ##Tratamento Erro: Conexão com Servidor SFTP
