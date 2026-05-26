@@ -2,6 +2,7 @@ import paramiko
 
 class SFTPService: 
 
+    #Construtor da classe
     def __init__(self, host, port, user, password):
         self.host = host
         self.port = int(port)
@@ -9,6 +10,7 @@ class SFTPService:
         self.password = password
     
 
+    #Metodo para conexão e envio de arquivos
     def transportFiles(self, localFile, remotePath):
         
         client = paramiko.SSHClient()
