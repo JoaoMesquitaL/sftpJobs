@@ -24,11 +24,23 @@ class SFTPService:
         
             print("Sucesso!\n")
         
+            ##Envio de arquivo | put no SFTP
+            try:
+                sftp = client.open_sftp()
+                sftp.put(localFile, remotePath)
+        
+                print("Arquivo enviado com sucesso!")
+                sftp.close()
+        
+            #Tratamento Erro: Execução do put no servidor SFTP
+            except Exception as e:
+                print(f"Erro ao enviar arquivo:\n {e}")
+        
             client.close()
 
         ##Tratamento Erro: Conexão com Servidor SFTP
         except Exception as e:
-            print(f"\n\nErro ao conectar: {e}")
+            print(f"\n\nErro ao conectar:\n {e}")
 
 
 
