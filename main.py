@@ -13,3 +13,4 @@ client = SFTPService(
     password=os.getenv('sftpPass')
 )
 
+client.transportFiles(os.getenv('filePathLocal'), os.getenv('filePathRemote'))
