@@ -2,6 +2,8 @@ import paramiko
 import os 
 from dotenv import load_dotenv
 
+from services import sftp_service  
+
 load_dotenv()
 
 client = paramiko.SSHClient()
