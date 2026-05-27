@@ -2,6 +2,8 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 from services.sftp_service import SFTPService
+import schedule 
+import time
 
 #Instanciada classe do SFTP Services
 client = SFTPService( 
@@ -11,8 +13,16 @@ client = SFTPService(
     password=os.getenv('sftpPass')
 )
 
-#Instanciada classe do Email SMTP
-client.transport_files(
-    os.getenv('filePathLocal'), 
-    os.getenv('filePathRemote')
-)
+#definido job a ser chamado pelo scheduler
+def daily_job():
+    client.transport_files(
+        os.getenv('filePathLocal'), 
+        os.getenv('filePathRemote')
+    )
+
+#Schedulada chamada diária da função de transporte de arquivos
+schedule.every().day.at("18:05").do(daily_job)
+
+while True:
+    schedule.run_pending()
+    time.sleep(1)
