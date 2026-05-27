@@ -1,6 +1,5 @@
 import os 
 from dotenv import load_dotenv
-#função pra leitura do arquivo .env
 load_dotenv()
 from services.sftp_service import SFTPService
 

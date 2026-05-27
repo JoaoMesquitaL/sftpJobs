@@ -1,6 +1,7 @@
 import paramiko
 import os
 from services.emailSmtp import SMTPMail
+from services.filesmanager import olaFile
 
 class SFTPService: 
 
@@ -45,6 +46,7 @@ class SFTPService:
                 #Email de sucesso de envio de arquivo (Support)
                 smtp.status_email(" - SFTP SENT SUCCESS", os.getenv('emailsToSupport'), "envio de arquivos p/ SFTP")
 
+                movefileold(os.getenv('filePathLocal'), os.getenv('filePathLocalOld'))
 
             #Tratamento Erro: Execução do put no servidor SFTP
             except Exception as e:
