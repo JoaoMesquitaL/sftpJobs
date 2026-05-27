@@ -3,3 +3,10 @@
 localreadme.md
 __pycache__/
 *.pyc
+
+# Virtual env
+venv/
+.env
+
+# VSCode
+.vscode/
