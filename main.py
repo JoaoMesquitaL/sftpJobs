@@ -1,9 +1,8 @@
 import os 
 from dotenv import load_dotenv
-from services.sftp_service import SFTPService
-
 #função pra leitura do arquivo .env
 load_dotenv()
+from services.sftp_service import SFTPService
 
 #Instanciada classe do SFTP Services
 client = SFTPService( 
@@ -13,5 +12,8 @@ client = SFTPService(
     password=os.getenv('sftpPass')
 )
 
-#Chamado método para envio com parametros
-client.transport_files(os.getenv('filePathLocal'), os.getenv('filePathRemote'))
+#Instanciada classe do Email SMTP
+client.transport_files(
+    os.getenv('filePathLocal'), 
+    os.getenv('filePathRemote')
+)

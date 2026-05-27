@@ -5,20 +5,21 @@ from datetime import date
 class SMTPMail:
     
     #Construtor da classe
-    def __init__(self, senderEmail, password):
-        self.email = senderEmail
+    def __init__(self, email, password):
+        self.email = email
         self.password = password
 
     #Metodo para envio do email de Status dos processos
-    def status_email(self, subject, destiny, process, sterror=0, logerror=""):
+    def status_email(self, subject, destiny, process="", sterror=0, logerror=""):
         
-        if(sterror = 0){
+        if(sterror == 0):
+            diaEnv = self.get_formated_date()
             ##Criando objeto da mensagem de SUCESSO
             msg = EmailMessage()
-            msg['Subject'] = subject
+            msg['Subject'] = diaEnv +  subject
             msg['From'] = self.email
             msg['To'] = destiny
-            msg.set_content('Sucesso ao realizar ' + process + ' no dia ' + get_formated_date())         
+            msg.set_content('Sucesso ao realizar ' + process + ' no dia ' + self.get_formated_date())         
 
             try:
                 with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
@@ -28,13 +29,14 @@ class SMTPMail:
 
             except Exception as e:
                 print(f"FALHA NO ENVIO DE EMAIL\n\n Destinatário: {destiny} \n Erro:\n {e}")
-        } else{
-             ##Criando objeto da mensagem de SUCESSO
+        else:
+            diaEnv = self.get_formated_date()
+            ##Criando objeto da mensagem de SUCESSO
             msg = EmailMessage()
-            msg['Subject'] = subject
+            msg['Subject'] = diaEnv +  subject
             msg['From'] = self.email
             msg['To'] = destiny
-            msg.set_content('FALHA ao realizar ' + process + ' no dia ' + getFormatedDate() + '\n Veja o erro abaixo: ' + logerror)         
+            msg.set_content('FALHA ao realizar ' + process + ' no dia ' + self.get_formated_date() + '\n ' + logerror)         
 
             try:
                 with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
@@ -44,8 +46,8 @@ class SMTPMail:
 
             except Exception as e:
                 print(f"FALHA NO ENVIO DE EMAIL\n\n Destinatário: {destiny} \n Erro:\n {e}")
-        }
+        
 
-    def get_formated_date():
+    def get_formated_date(self):
         hoje = date.today()
         return hoje.strftime('%d/%m/%Y')
