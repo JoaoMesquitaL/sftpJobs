@@ -14,4 +14,4 @@ client = SFTPService(
 )
 
 #Chamado método para envio com parametros
-client.transportFiles(os.getenv('filePathLocal'), os.getenv('filePathRemote'))
+client.transport_files(os.getenv('filePathLocal'), os.getenv('filePathRemote'))
