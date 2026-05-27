@@ -1,4 +1,5 @@
 import paramiko
+from services.emailSmtp import SMTPMail
 
 class SFTPService: 
 
@@ -24,7 +25,7 @@ class SFTPService:
                 username = self.user, 
                 password = self.password)
         
-            print("Sucesso!\n")
+            print(f"Sucesso ao conectar-se com o servidor SFTP!, {hostname}\n")
         
             ##Envio de arquivo | put no SFTP
             try:

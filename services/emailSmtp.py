@@ -25,5 +25,5 @@ class SMTPMail:
             print("Email enviado com sucesso!\n Verifique sua caixa de email")
         
         except Exception as e:
-            print(f"Erro ao enviar email: \n {e}")
+            print(f"FALHA NO ENVIO DE EMAIL\n\n Destinatário: {destiny} \n Erro:\n {e}")
 
