@@ -43,9 +43,9 @@ class SFTPService:
                 
                 print(f"Sucesso ao enviar arquivos servidor SFTP {self.host}\n")
                 #Email de sucesso de envio de arquivo (Stakeholder)
-                #smtp.status_email(" - ARQUIVOS ENVIADOS", os.getenv('emailsToClient'), "envio de arquivos p/ SFTP" )
+                smtp.status_email(" - ARQUIVOS ENVIADOS", os.getenv('emailsToClient'), "envio de arquivos p/ SFTP" )
                 #Email de sucesso de envio de arquivo (Support)
-                #smtp.status_email(" - SFTP SENT SUCCESS", os.getenv('emailsToSupport'), "envio de arquivos p/ SFTP")
+                smtp.status_email(" - SFTP SENT SUCCESS", os.getenv('emailsToSupport'), "envio de arquivos p/ SFTP")
 
                 movefileold(os.getenv('filePathLocal'), os.getenv('filePathLocalOld'))
 
