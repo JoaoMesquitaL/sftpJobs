@@ -2,6 +2,7 @@ import paramiko
 import os
 from services.emailSmtp import SMTPMail
 from services.filesmanager import movefileold
+from datetime import date
 
 class SFTPService: 
 
@@ -42,20 +43,23 @@ class SFTPService:
                 
                 print(f"Sucesso ao enviar arquivos servidor SFTP {self.host}\n")
                 #Email de sucesso de envio de arquivo (Stakeholder)
-                smtp.status_email(" - ARQUIVOS ENVIADOS", os.getenv('emailsToClient'), "envio de arquivos p/ SFTP" )
+                #smtp.status_email(" - ARQUIVOS ENVIADOS", os.getenv('emailsToClient'), "envio de arquivos p/ SFTP" )
                 #Email de sucesso de envio de arquivo (Support)
-                smtp.status_email(" - SFTP SENT SUCCESS", os.getenv('emailsToSupport'), "envio de arquivos p/ SFTP")
+                #smtp.status_email(" - SFTP SENT SUCCESS", os.getenv('emailsToSupport'), "envio de arquivos p/ SFTP")
 
                 movefileold(os.getenv('filePathLocal'), os.getenv('filePathLocalOld'))
 
             #Tratamento Erro: Execução do put no servidor SFTP
             except Exception as e:
-                print(f"Erro ao enviar arquivo:\n {e}")
 
-                #Email de ERRO de envio de arquivo (Stakeholder)
-                smtp.status_email(" - ERRO AO ENVIAR ARQUIVOS", os.getenv('emailsToClient'), "envio de arquivos p/ SFTP", 1, "O Suporte ja foi notificado e logo entrará em contato!")
-                #Email de ERRO de envio de arquivo (Support)
-                smtp.status_email(" - SFTP SENT FAIL", os.getenv('emailsToSupport'), "envio de arquivos p/ SFTP", 1, str(e))
+                hoje = date.today()
+                if (hoje.day == 28):
+                    #Email de ERRO de envio de arquivo (Stakeholder)
+                    smtp.status_email(" - ERRO AO ENVIAR ARQUIVOS", os.getenv('emailsToClient'), "envio de arquivos p/ SFTP", 1, "O Suporte ja foi notificado e logo entrará em contato!")
+                    #Email de ERRO de envio de arquivo (Support)
+                    smtp.status_email(" - SFTP SENT FAIL", os.getenv('emailsToSupport'), "envio de arquivos p/ SFTP", 1, str(e))
+                else:
+                    print(f"Erro ao enviar arquivo:\n {e}")
         
             client.close()
 
@@ -67,6 +71,5 @@ class SFTPService:
             smtp.status_email(" - ERRO DE CONEXÃO AO ENVIAR ARQUIVOS", os.getenv('emailsToClient'), "envio de arquivos p/ SFTP", 1, "O Suporte ja foi notificado e logo entrará em contato!")
             #Email de ERRO de conexão c/ SFTP + error (Support)
             smtp.status_email(" - SFTP CONNECTION FAIL", os.getenv('emailsToSupport'), "conexão c/ servidor SFTP ", 1, str(e))
-
 
 

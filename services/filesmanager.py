@@ -1,6 +1,7 @@
 import shutil
+from shutil import copy2
 import os
 
 def movefileold(source, destination):
-    shutil.copy2(source, destination,  follow_symlinks=True)
+    shutil.move(source, destination,  copy_function=copy2)
 

@@ -21,7 +21,7 @@ def daily_job():
     )
 
 #Schedulada chamada diária da função de transporte de arquivos
-schedule.every().day.at("18:05").do(daily_job)
+schedule.every().day.at("18:32").do(daily_job)
 
 while True:
     schedule.run_pending()
