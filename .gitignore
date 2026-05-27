@@ -1,3 +1,5 @@
 # Variáveis de ambiente
 .env
-readme.md
+localreadme.md
+__pycache__/
+*.pyc
